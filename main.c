@@ -367,6 +367,12 @@ int main(){
 					jogador_atual.pil[cont]='\0';
 				break;
 				case ALLEGRO_KEY_ENTER:
+					//não permite que alguém encerre seu nome com espaços
+					while(jogador_atual.pil[cont-1]==' '){
+						jogador_atual.pil[cont-1]='\0';
+						cont--;
+					}
+					
 					//indica que alguém foi registrado
 					save=true;
 					registry=false;
