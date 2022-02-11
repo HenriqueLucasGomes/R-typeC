@@ -62,7 +62,7 @@ int controleTiros(Tiro *tiros, int id, int *qtd_tiros){
 }
 
 
-void tiroPequeno(Nave nave,Tiro *tiros,int *qtd_tiros,int *tam_tiro,bool *permission){
+void atiraTiro(Nave nave,Tiro *tiros,int *qtd_tiros,int *tam_tiro,bool *permission){
 
 
 	

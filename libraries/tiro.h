@@ -10,7 +10,7 @@ void initTiros(Tiro *tiros);
 void destroiTiro(Tiro *tiros, int id, int *qtd_tiros);
 int controleTiros(Tiro *tiros, int id, int *qtd_tiros);
 
-void tiroPequeno(Nave nave,Tiro *tiros,int *qtd_tiros,int *tam_tiro,bool *permission);
-void desenhaCarregador(Nave *nave, int r);
+void atiraTiro(Nave nave,Tiro *tiros,int *qtd_tiros,int *tam_tiro,bool *permission);
+void desenhaCarregador(Nave *nave, int tam_tiro);
 void atualizaTiro(Tiro *tiros, int *qtd_tiros, Inimigo *inimigos,Nave *nave,int *pts);
  

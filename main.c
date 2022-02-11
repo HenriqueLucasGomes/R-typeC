@@ -40,6 +40,7 @@ void desenhaCenario(){
 	al_clear_to_color(al_map_rgb(64,64,64));
 }
 
+//desenha a pontuação na tela
 void desenhaScore(int pontos){
 
 	char score[]="Score: ";
@@ -52,6 +53,7 @@ void desenhaScore(int pontos){
 	
 }
 
+//tela de registro de nome
 void telaInicial(){
 
 	al_clear_to_color(al_map_rgb(21, 26, 60));//define uma cor mais cinzenta
@@ -63,20 +65,19 @@ void telaInicial(){
 
 }
 
+//desenha o parabens caso quebre o record
 void telaParabens(Scores gamer){
 
-	char text[35];
+	char text[35];//titulo com parabens
 	char rec[]="New record ";
 	char pontos[20];
 
-	strcpy(text,"Congratulations ");
-	printf("\n%s\n",text);
-	strcat(text,gamer.pil);
-	printf("\n%s\n",text);
+	strcpy(text,"Congratulations ");//copia uma string na outra
+	strcat(text,gamer.pil);//copia uma string na outra
 
 	sprintf(pontos, "%d", gamer.pts);//transforma int em uma string no vetor pontos
-	strcat(rec,pontos);
-	strcat(rec," !!!");
+	strcat(rec,pontos);//concatena uma string a outra
+	strcat(rec," !!!");//concatena uma string a outra
 
 	al_clear_to_color(al_map_rgb(21, 26, 60));//quadro principal
 
@@ -86,6 +87,7 @@ void telaParabens(Scores gamer){
 
 }
 
+//desenha a tela final com a lista de pontuações
 void telaFinal(Scores result[],int tam){
 		
 		char linha[300];//armazena '.'
@@ -107,20 +109,15 @@ void telaFinal(Scores result[],int tam){
 			//preenche com '.'
 			for(int k=0;k<qtd_esp-(5*tam_pil)-(4*tam_pts);k++){//preenche até o limite menos o tamanhos dos outros vetores
 				linha[k]='.';
-				linha[k+1]='\0';
+				linha[k+1]='\0';//define o final da string
 			}
-
-			linha[qtd_esp]='\0';//define manualemnte o final da string
 			
-			al_draw_text(FONTE,al_map_rgb(255, 255, 255),5,i*30,0,result[i].pil);
-			al_draw_text(FONTE,al_map_rgb(255, 255, 255),490,i*30,ALLEGRO_ALIGN_CENTER,linha);
-			al_draw_text(FONTE,al_map_rgb(255, 255, 255),955,i*30,ALLEGRO_ALIGN_RIGHT,pontos);
+			al_draw_text(FONTE,al_map_rgb(255, 255, 255),5,i*30,0,result[i].pil);//desenha o nome 
+			al_draw_text(FONTE,al_map_rgb(255, 255, 255),490,i*30,ALLEGRO_ALIGN_CENTER,linha);//desenha os '.' 
+			al_draw_text(FONTE,al_map_rgb(255, 255, 255),955,i*30,ALLEGRO_ALIGN_RIGHT,pontos);//desenha a pontuação
 
 			linha[0]='\0';//redefine o final da string
 		}
-
-
-
 
 }
 
@@ -195,30 +192,29 @@ int main(){
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	
 	
+	//inicia as variáveis globais
 	initGlobais();
-
-	
 	
 	// inicia o temporizador
 	al_start_timer(timer);
 
 
 	//variaveis para controle
-	int qtd_pilotos=0;//quantidade de pilotos registrados
-	int qtd_tiros=0;
-	int tam_tiro=3;
-	int cont=0;
+	int qtd_pilotos=0;  //quantidade de pilotos registrados
+	int qtd_tiros=0;    //quantidade de tiros registrados
+	int tam_tiro=3;     //controla o tamnho do tiro
+	int cont=0;         //controla o tamanho do nome registrado
 
 	
 	// int qtd_inimigos=0;
 
-	bool playing = true;  //encerra o jogo
-	bool registry = true; //encerra a tela inicial
-	bool final = true;    //encerra a tela final
-	bool save = false;    //define se algo a salvar
-	bool fim_rec=true;    //encerra a tela de parabens
-	bool permission=false;
-	bool soma=false;
+	bool playing = true;   //encerra o jogo
+	bool registry = true;  //encerra a tela inicial
+	bool final = true;     //encerra a tela final
+	bool save = false;     //define se algo a salvar
+	bool fim_rec=true;     //encerra a tela de parabens
+	bool permission=false; //permite que o tiro seja dado
+	bool soma=false;       //permite que o carregamentodo tiro seja feito
 
 
 
@@ -230,13 +226,17 @@ int main(){
 		
 		if(ev.type == ALLEGRO_EVENT_TIMER) {
 			
+			//limita o tamanho de nome
 			if(cont>=TAM_NAME){
 				cont=TAM_NAME;
 			}
+
+			//define manualmente o final do nome
 			jogador_atual.pil[TAM_NAME]='\0';
 
 			desenhaCenario();
 			telaInicial(jogador_atual.pil);
+
 			al_flip_display();
 		}
 
@@ -367,6 +367,7 @@ int main(){
 					jogador_atual.pil[cont]='\0';
 				break;
 				case ALLEGRO_KEY_ENTER:
+					//indica que alguém foi registrado
 					save=true;
 					registry=false;
 				break;
@@ -387,40 +388,42 @@ int main(){
 		
 		if(ev.type == ALLEGRO_EVENT_TIMER) {
 
-			//atualiza a tela (quando houver algo para mostrar)
 			
 			desenhaCenario();
 			desenhaScore(jogador_atual.pts);
-		
 			desenhaBloco(bloco);
+
+			//atualiza a posição do bloco e informa se o nave se chocou com o bloco
 			playing=atualizaBloco(&bloco,SCREEN_H,SCREEN_W,&nave,tiros,&qtd_tiros,inimigos);
 		
+			//trata de encerrrar while antes que o valor de playing seja indevidamente alterado
 			if(!playing){
 				break;
 			}
 
 			desenhaNave(nave);
+
+			//atualiza a posição da nave e informa se ela se chocou com um inimigo
 			playing=atualizaNave(&nave,inimigos);
 
+			//realiza o carregamnto do tiro caso soma seja verdadeiro
 			if(soma){
+				//não permite que o tiro passe de 30 de raio
 				if(tam_tiro<30){
 					tam_tiro++;	
 				}
-				
+				//desenha o carregamento do tiro
 				desenhaCarregador(&nave,tam_tiro);
-				// printf("\n%i\n",tam_tiro);
 			}else{
-				tiroPequeno(nave,tiros,&qtd_tiros,&tam_tiro,&permission);
+				//atira caso soma seja falso e permission seja verdadeiro
+				atiraTiro(nave,tiros,&qtd_tiros,&tam_tiro,&permission);
 			}
-
-
 			
 			atualizaTiro(tiros,&qtd_tiros,inimigos,&nave,&jogador_atual.pts);	
 			
 			desenhaInimigo(inimigos);
 			atualizaInimigo(inimigos);
 			
-			// printf("\nAAA2\n");
 			al_flip_display();
 		}
 		
@@ -429,6 +432,7 @@ int main(){
 		if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
 			playing=false;
 			final=false;
+			fim_rec=false;
 		}
 		
 		//se o tipo de evento for um pressionar de uma tecla
@@ -452,14 +456,7 @@ int main(){
 				break;
 
 				case ALLEGRO_KEY_SPACE:
-					// tam_tiro++;
 					soma=true;
-					// printf("\n%i\n",tam_tiro);
-					// printf("\n%i\n",tam_tiro);
-					// tiroPequeno(nave,tiros,&qtd_tiros);
-					// printf("\n%i\n",qtd_tiros);
-					// qtd_tiros++;
-
 				break; 
 			}
 		
@@ -485,10 +482,6 @@ int main(){
 				case ALLEGRO_KEY_SPACE:
 					permission=true;
 					soma=false;
-					// tam_tiro=3;
-					// printf("\noi\n");
-					// printf("\n%i\n",qtd_tiros);
-					// qtd_tiros++;
 				break; 
 			}
 		
@@ -496,12 +489,13 @@ int main(){
 	
 	}
 	
+	//caso tenha sidofeito um registro ele é salvo no arquivo
 	if(save){
-		printf("\n%s: %i\n",jogador_atual.pil,jogador_atual.pts);
 		registraPontos(&jogador_atual);
 		qtd_pilotos=consultaSave(result);
 	}
 
+	//mostra a tela de parabens caso haja quebrado o record
 	while(jogador_atual.bateu && fim_rec){
 
 		ALLEGRO_EVENT ev;
@@ -519,6 +513,7 @@ int main(){
 		if(ev.type == ALLEGRO_EVENT_KEY_DOWN) {
 			switch(ev.keyboard.keycode){
 				case ALLEGRO_KEY_ENTER:
+					//aguarda pelo enter para prosseguir
 					fim_rec=false;
 				break;
 			}
@@ -526,9 +521,11 @@ int main(){
 
 	}
 
+	//mostra a tela final
 	telaFinal(result,qtd_pilotos);
 	al_flip_display();
 
+	//aguarda o enter do usuário para fechar o programa
 	while(final){
 
 		ALLEGRO_EVENT ev;
@@ -550,8 +547,6 @@ int main(){
 			
 	}
 	
-	
-
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
    
