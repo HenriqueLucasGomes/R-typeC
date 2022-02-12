@@ -1,6 +1,4 @@
-
 typedef struct Nave{
-
 	int w,h;
 	int posi_x,posi_y;
 	int dir_x,dir_y;
@@ -8,7 +6,6 @@ typedef struct Nave{
 	ALLEGRO_COLOR cor;
 
 } Nave;
-
 
 void initNave(Nave *nave, int altura_tela);
 void desenhaNave(Nave nave);

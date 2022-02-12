@@ -1,9 +1,7 @@
 typedef struct Tiro{
-
 	int x,y;
 	int r;
 	ALLEGRO_COLOR cor;
-
 } Tiro;
 
 void initTiros(Tiro *tiros);

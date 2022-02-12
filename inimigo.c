@@ -69,16 +69,17 @@ void atualizaInimigo(Inimigo *inimigos){
 			//posição das extremidades do inimigo 2
 			y_superior=inimigos[k].y-inimigos[k].r;
 			y_inferiro=inimigos[k].y+inimigos[k].r;
-			x_esquerda=inimigos[k].x-inimigos[k].r;
 			x_direita=inimigos[k].x+inimigos[k].r;
+			x_esquerda=inimigos[k].x-inimigos[k].r;
+			
 			
 			if(i!=k){//não detectar colisão consigo mesmo
 			
-				//TESTE O IGUAL AQUI <= e >=
+				//considera que o inimigo numero 1 esteja atingindo frontalmente o inimigo 2
  				if(linha_dir<x_direita && linha_dir>x_esquerda){
-					//
+					//considera que o inimigo 1 está abaixo do inimigo 2
 					if(linha_inf>= y_superior && linha_inf>=y_inferiro){
-						//
+						//considera um choque lateral inferior
 						if(linha_sup<=y_superior || linha_sup<=y_inferiro){
 							//destroi o menor inimigo
 							if(inimigos[i].r<inimigos[k].r){
@@ -89,9 +90,9 @@ void atualizaInimigo(Inimigo *inimigos){
 								
 						}
 					}
-					//
+					//considera que o inimigo 1 está acima do inimigo 2
 					if(linha_sup<=y_superior && linha_sup<=y_inferiro){
-						//
+						//considera um choque lateral superior
 						if(linha_inf>=y_superior || linha_inf>=y_inferiro){
 							//destroi o menor inimigo
 							if(inimigos[i].r<inimigos[k].r){
@@ -101,7 +102,7 @@ void atualizaInimigo(Inimigo *inimigos){
 							}
 						}
 					}
-					//
+					//considera que o inimigo 1 esteja enetre as linha inferiores e superiores do inimigo 2
 					if(linha_sup<=y_superior && linha_inf>=y_inferiro){
 						//destroi o menor inimigo
 						if(inimigos[i].r<inimigos[k].r){
@@ -111,9 +112,9 @@ void atualizaInimigo(Inimigo *inimigos){
 						}
 					}
 				}
-				//
+				//considera que o inimigo numero 1 esteja atingindo o inimigo 2 na traseira
 				if(linha_esq>=x_esquerda && linha_esq<=x_direita){
-					//
+					//considera que o inimigo 1 esteja entre a parte superior e inferior do inimigo 2
 					if(linha_sup>=y_superior && linha_inf<=y_inferiro){
 						//destroi o menor inimigo
 						if(inimigos[i].r<inimigos[k].r){

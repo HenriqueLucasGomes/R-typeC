@@ -14,8 +14,8 @@
 const int VELOCIDADE_BLOCO=2;
 
 typedef struct Bloco{
-	int x,y;
-	int w,h;
+	int x,y;    //define a posição x e y do bloco
+	int w,h;    //define sua largura e altura
 	ALLEGRO_COLOR cor;
 } Bloco;
 
