@@ -42,7 +42,7 @@ void destroiInimigo(Inimigo *inimigos,int id){
 	criaInimigo(inimigos,id);// ao criar um inimigo na mesma posição do anterior, ele é sobrescrito
 }
 
-//responsável por atualizar a posição dos inimigos, dectar colisões entre inimigos
+//responsável por atualizar a posição dos inimigos e detectar colisões entre inimigos
 void atualizaInimigo(Inimigo *inimigos){
 	for(int i=0;i<MAX_INIMIGOS;i++){
 		

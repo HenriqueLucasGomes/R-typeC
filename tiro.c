@@ -33,7 +33,7 @@ void initTiros(Tiro *tiros){
 
 }
 
-//responsável por iniciar a lista de tiros
+//responsável por destruir um tiro o sobrescrevendo
 void destroiTiro(Tiro *tiros, int id, int *qtd_tiros){
 	
 	//sobrescreve o tiro a ser eliminado com o pŕoximo item da lista até o fim da mesma
@@ -45,7 +45,7 @@ void destroiTiro(Tiro *tiros, int id, int *qtd_tiros){
 	*qtd_tiros-=1;	
 }
 
-//responsável por identificar se o tiro em questão chegou ao fim da tela po se é um tiro nulo que representa o final da lista
+//responsável por identificar se o tiro em questão chegou ao fim da tela ou se é um tiro nulo que representa o final da lista
 int controleTiros(Tiro *tiros, int id, int *qtd_tiros){
 
 	//caso seja um tiro nulo	

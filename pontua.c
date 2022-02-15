@@ -93,6 +93,8 @@ bool procuraPiloto(char piloto[], int *num){
 	//caso arquivo esteja vazio
 	if(tam==0){
 		*num=0;
+		//fecha o arquivo
+		fclose(arq);
 		return false;
 	}
 
@@ -111,6 +113,8 @@ bool procuraPiloto(char piloto[], int *num){
 		//compara os nomes até encontrar, ou não, um nome igual 
 		if(comparaNome(pilotos[i],piloto)){
 			*num=i;
+			//fecha o arquivo
+			fclose(arq);
 			return true;
 		}
 	}

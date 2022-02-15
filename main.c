@@ -26,8 +26,7 @@ Scores jogador_atual;
 Nave nave;
 Bloco bloco;
 
-
-
+//responsável por iniciar as variáveis globais
 void initGlobais(){
 	initTiros(tiros);
 	initNave(&nave,SCREEN_H);
@@ -36,6 +35,7 @@ void initGlobais(){
 	initPiloto(&jogador_atual);
 }
 
+//responsável por desenhar o cenário
 void desenhaCenario(){
 	al_clear_to_color(al_map_rgb(64,64,64));
 }
@@ -61,8 +61,6 @@ void telaInicial(){
 	al_draw_filled_rectangle(280,150,280+400,150+240,al_map_rgb(0,0,0));//quadro principal
 	al_draw_text(FONTE,al_map_rgb(72, 58, 246),280+65,150+20,0,"Say your pilot name:");//titulo
 	al_draw_text(FONTE,al_map_rgb(72, 58, 246),480,270,ALLEGRO_ALIGN_CENTRE,jogador_atual.pil);//nome do piloto
-
-
 }
 
 //desenha o parabens caso quebre o record
@@ -191,23 +189,20 @@ int main(){
 	//registra na fila os eventos de teclado (ex: pressionar uma tecla)
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	
-	
-	//inicia as variáveis globais
-	initGlobais();
-	
 	// inicia o temporizador
 	al_start_timer(timer);
 
+	//inicia as variáveis globais
+	initGlobais();
 
-	//variaveis para controle
+	//variaveis para contabilização
 	int qtd_pilotos=0;  //quantidade de pilotos registrados
 	int qtd_tiros=0;    //quantidade de tiros registrados
 	int tam_tiro=3;     //controla o tamnho do tiro
 	int cont=0;         //controla o tamanho do nome registrado
 
-	
-	// int qtd_inimigos=0;
 
+	//variáveis de controle
 	bool playing = true;   //encerra o jogo
 	bool registry = true;  //encerra a tela inicial
 	bool final = true;     //encerra a tela final
@@ -216,8 +211,7 @@ int main(){
 	bool permission=false; //permite que o tiro seja dado
 	bool soma=false;       //permite que o carregamentodo tiro seja feito
 
-
-
+	//tela inicial
 	while(registry){
 
 		ALLEGRO_EVENT ev;
@@ -388,7 +382,7 @@ int main(){
 		}
 	}
 
-
+	//tela jogavel
 	while(playing){
 	
 		ALLEGRO_EVENT ev;
@@ -495,9 +489,7 @@ int main(){
 					soma=false;
 				break; 
 			}
-		
 		}
-	
 	}
 	
 	//caso tenha sidofeito um registro ele é salvo no arquivo
@@ -529,7 +521,6 @@ int main(){
 				break;
 			}
 		}
-
 	}
 
 	//mostra a tela final
@@ -554,8 +545,7 @@ int main(){
 					final=false;
 				break;
 			}
-		}
-			
+		}		
 	}
 	
 	al_destroy_display(display);
