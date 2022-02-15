@@ -17,6 +17,7 @@ typedef struct Scores{
 
 //inicia os valores de piloto
 void initPiloto(Scores *piloto){
+	(*piloto).pil[0]='\0'; //define o caracter inicial do piloto como sendo \0
 	(*piloto).pts=0;       //define pontos inicias como 0
 	(*piloto).bateu=false; //define que o piloto não bateu seu record
 }

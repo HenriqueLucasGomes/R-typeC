@@ -363,8 +363,10 @@ int main(){
 					cont++;
 				break;
 				case ALLEGRO_KEY_BACKSPACE:
-					cont--;
-					jogador_atual.pil[cont]='\0';
+					if(cont>0){
+						cont--;
+						jogador_atual.pil[cont]='\0';
+					}					
 				break;
 				case ALLEGRO_KEY_ENTER:
 					//não permite que alguém encerre seu nome com espaços
@@ -372,10 +374,13 @@ int main(){
 						jogador_atual.pil[cont-1]='\0';
 						cont--;
 					}
-					
-					//indica que alguém foi registrado
-					save=true;
-					registry=false;
+
+					//não permite que um jogador registre o nome nulo
+					if(jogador_atual.pil[0]!='\0'){
+						//indica que alguém foi registrado					
+						save=true;
+						registry=false;
+					}					
 				break;
 
 			}

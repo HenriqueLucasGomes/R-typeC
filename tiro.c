@@ -59,21 +59,23 @@ int controleTiros(Tiro *tiros, int id, int *qtd_tiros){
 	return id;
 }
 
-
+//responsável registrar o tiro
 void atiraTiro(Nave nave,Tiro *tiros,int *qtd_tiros,int *tam_tiro,bool *permission){
 
-
-	
-	
+	//registrar tiros com mais de 4 de raio e se for permitido
 	if(*tam_tiro>=4 && *permission){
 
+
+		//cria novo tiro
 		Tiro tiro;
 		tiro.x=nave.posi_x+RAIO_PEQUENO;
 		tiro.y=nave.posi_y;
 		tiro.r=RAIO_PEQUENO+(*tam_tiro/2);
 		tiro.cor=al_map_rgb(255,0,0);
 		
+		//registra novo tiro na lista
 		tiros[*qtd_tiros]=tiro;
+		
 		*qtd_tiros+=1;
 		*tam_tiro=3;
 		*permission=false;

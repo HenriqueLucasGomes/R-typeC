@@ -15,7 +15,7 @@ const int VELOCIDADE_NAVE=4;
 typedef struct Nave{
 	int w,h;                     //define sua largura e altura
 	int posi_x,posi_y;           //define sua posição x e y do ponto principal
-	int x_direita_x,x_direita_y; //define sua posição x e y do ponto secundário
+	int dir_x,dir_y;             //define sua posição x e y do ponto secundário
 	int vel;                     //define sua velociadade
 	ALLEGRO_COLOR cor;
 } Nave;
@@ -27,8 +27,8 @@ void initNave(Nave *nave, int altura_tela){
 	(*nave).h=NAVE_H;              //altura da nave
 	(*nave).posi_x=10+(*nave).w;   //inicia a 10 pixels de distância da borda
 	(*nave).posi_y= altura_tela/2; //inicia a nave no meio da tela
-	(*nave).x_direita_x=0;         //inicia sem sem movimento
-	(*nave).x_direita_y=0;         //inicia sem sem movimento
+	(*nave).dir_x=0;               //inicia sem sem movimento
+	(*nave).dir_y=0;               //inicia sem sem movimento
 	(*nave).vel=VELOCIDADE_NAVE;   //define a velocidade padrão da nave
 	(*nave).cor=al_map_rgb(192+rand()%64,192+rand()%64,192+rand()%64);
 	
@@ -44,8 +44,8 @@ void desenhaNave(Nave nave){
 bool atualizaNave(Nave *nave, Inimigo *inimigos){
 
 	//atualiza as posições da nave
-	int soma_x=(*nave).posi_x+((*nave).x_direita_x*(*nave).vel);
-	int soma_y=(*nave).posi_y+((*nave).x_direita_y*(*nave).vel);
+	int soma_x=(*nave).posi_x+((*nave).dir_x*(*nave).vel);
+	int soma_y=(*nave).posi_y+((*nave).dir_y*(*nave).vel);
 
 	//limita a movimentação da nave
 	if(!(soma_x>=958 || (soma_x-NAVE_W)<=2 || (soma_y+NAVE_H/2)>=538 || (soma_y-NAVE_H/2)<=2 )){
